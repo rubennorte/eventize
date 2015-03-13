@@ -29,7 +29,7 @@ var eventize = require('eventize');
 var myObject = {
   name: 'John',
   getName: function() {
-    return name;
+    return this.name;
   },
   setName: function(name) {
     this.name = name;

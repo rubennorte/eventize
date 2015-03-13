@@ -1,0 +1,7 @@
+instrumentation:
+  root: lib
+reporting:
+  dir: tests/output/coverage
+  reports:
+    - lcov
+    - cobertura

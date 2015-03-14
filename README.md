@@ -46,9 +46,8 @@ eventize(myObject, ['setName']);
 
 myObject.on('setName:before', function(args, method, target) {});
 myObject.on('setName', function(args, method, target) {});
-myObject.on('setName:after', function(args, returnValue, method, target) {});
 
-myObject.setName('Jack'); // emits setName:before, setName and setName:after
+myObject.setName('Jack'); // emits setName:before and setName
 ```
 
 ### eventize.methods
@@ -75,8 +74,7 @@ eventize.methods(MyConstructor.prototype, ['addOne']);
 var myObject = new MyConstructor();
 myObject.on('addOne:before', function(args, method, target) {});
 myObject.on('addOne', function(args, method, target) {});
-myObject.on('addOne:after', function(args, returnValue, method, target) {});
-myObject.addOne(1); // Emits addOne:before, addOne and addOne:after
+myObject.addOne(1); // Emits addOne:before and addOne
 ```
 
 ### eventize.method
@@ -87,8 +85,7 @@ myObject.addOne(1); // Emits addOne:before, addOne and addOne:after
 eventize.method(myObject, 'getName');
 myObject.on('getName:before', function(args,  method, target) {});
 myObject.on('getName', function(args,  method, target) {});
-myObject.on('getName:after', function(args, returnValue,  method, target) {});
-myObject.getName(); // emits setName:before, setName and setName:after
+myObject.getName(); // emits setName:before and setName
 ```
 
 ## Tests
@@ -111,15 +108,19 @@ npm test
 
 ## History
 
+* 0.5.0:
+  - Removed "method:after" events
+  - Called "method" events after calling the original method
+
 * 0.4.0:
   - Event callback signature is now (args, [returnValue], method, target)
 
 * 0.3.0:
-  - new method eventize.methods (mostly for classes)
+  - New method `eventize.methods` (mostly for classes)
 
 * 0.2.0:
-  - new methods eventize.object and eventize.method
-  - eventize (eventize.object) is now idempotent (as well as eventize.method)
+  - New methods `eventize.object` and `eventize.method`
+  - `eventize` (`eventize.object`) is now idempotent (as well as `eventize.method`)
 
 * 0.1.0:
   - Basic functionality

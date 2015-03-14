@@ -44,9 +44,9 @@ var myObject = {
 // equivalent to eventize.object(myObject, ['setName']);
 eventize(myObject, ['setName']);
 
-myObject.on('setName:before', function(args) {});
-myObject.on('setName', function(args) {});
-myObject.on('setName:after', function(args, returnValue) {});
+myObject.on('setName:before', function(args, method, target) {});
+myObject.on('setName', function(args, method, target) {});
+myObject.on('setName:after', function(args, returnValue, method, target) {});
 
 myObject.setName('Jack'); // emits setName:before, setName and setName:after
 ```
@@ -73,9 +73,9 @@ MyConstructor.prototype.addOne = function(value) {
 eventize.methods(MyConstructor.prototype, ['addOne']);
 
 var myObject = new MyConstructor();
-myObject.on('addOne:before', function(args) {});
-myObject.on('addOne', function(args) {});
-myObject.on('addOne:after', function(args, returnValue) {});
+myObject.on('addOne:before', function(args, method, target) {});
+myObject.on('addOne', function(args, method, target) {});
+myObject.on('addOne:after', function(args, returnValue, method, target) {});
 myObject.addOne(1); // Emits addOne:before, addOne and addOne:after
 ```
 
@@ -85,7 +85,9 @@ myObject.addOne(1); // Emits addOne:before, addOne and addOne:after
 
 ```javascript
 eventize.method(myObject, 'getName');
-myObject.on('getName:after', function(args, returnValue) {});
+myObject.on('getName:before', function(args,  method, target) {});
+myObject.on('getName', function(args,  method, target) {});
+myObject.on('getName:after', function(args, returnValue,  method, target) {});
 myObject.getName(); // emits setName:before, setName and setName:after
 ```
 

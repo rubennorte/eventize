@@ -1,5 +1,5 @@
-[![npm](https://img.shields.io/npm/v/eventize.svg)](https://npmjs.org/package/eventize)
-[![npm](https://img.shields.io/npm/l/eventize.svg)](https://npmjs.org/package/eventize)
+[![npm](https://img.shields.io/npm/v/eventize.svg)](https://www.npmjs.org/package/eventize)
+[![npm](https://img.shields.io/npm/l/eventize.svg)](https://www.npmjs.org/package/eventize)
 [![Build Status](https://travis-ci.org/rubennorte/eventize.svg?branch=master)](https://travis-ci.org/rubennorte/eventize)
 [![Coverage Status](https://coveralls.io/repos/rubennorte/eventize/badge.svg)](https://coveralls.io/r/rubennorte/eventize)
 [![Code Climate](https://codeclimate.com/github/rubennorte/eventize/badges/gpa.svg)](https://codeclimate.com/github/rubennorte/eventize)  

@@ -23,9 +23,9 @@ npm install eventize
 
 ## Usage
 
-### eventize / eventize.object
+### eventize.object
 
-`eventize` (also `eventize.object`) converts plain objects into event emitters (if it they are not) and wraps the specified methods to emit events before and after being called:
+`eventize.object` converts plain objects into event emitters (if it they are not) and wraps the specified methods to emit events before and after being called:
 
 ```javascript
 var eventize = require('eventize');
@@ -42,7 +42,7 @@ var myObject = {
 };
 
 // equivalent to eventize.object(myObject, ['setName']);
-eventize(myObject, ['setName']);
+eventize.object(myObject, ['setName']);
 
 myObject.on('setName:before', function(args, method, target) {});
 myObject.on('setName', function(args, returnValue, method, target) {});

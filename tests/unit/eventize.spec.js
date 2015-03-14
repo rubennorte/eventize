@@ -6,11 +6,12 @@ var eventizeMethod = require('../../lib/eventize-method');
 
 describe('eventize', function() {
 
-  it('should be a reference to eventize.object() with the proper API', function() {
-    expect(eventize).toBe(eventizeObject.object);
-    expect(eventize.object).toBe(eventizeObject.object);
-    expect(eventize.methods).toBe(eventizeMethods.methods);
-    expect(eventize.method).toBe(eventizeMethod.method);
+  it('should be an object with the proper API', function() {
+    expect(eventize).toEqual({
+      object: eventizeObject.object,
+      methods: eventizeMethods.methods,
+      method: eventizeMethod.method
+    });
   });
 
 });

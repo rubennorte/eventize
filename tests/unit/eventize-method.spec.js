@@ -4,18 +4,12 @@
 var EventEmitter = require('events').EventEmitter;
 
 var createTimeSpy = require('../helpers/create-time-spy');
-var eventizeMethod = require('../../lib/eventize-method');
+var eventize = require('../../lib/eventize-method');
 
-describe('eventizeMethod', function() {
+describe('eventize.method()', function() {
 
-  it('should throw an error if the object is not an event emitter', function() {
-    var target = {
-      someMethod: function() {}
-    };
-    var doEventize = function() {
-      eventizeMethod(target, 'someMethod');
-    };
-    expect(doEventize).toThrow(jasmine.any(TypeError));
+  it('should be a function', function() {
+    expect(eventize.method).toEqual(jasmine.any(Function));
   });
 
   describe('when calling it with the name of an existing "someMethod" function', function() {
@@ -30,7 +24,7 @@ describe('eventizeMethod', function() {
       target.someMethod = originalSomeMethod;
       target.someOtherMethod = originalSomeOtherMethod;
 
-      eventizeMethod(target, 'someMethod');
+      eventize.method(target, 'someMethod');
     });
 
     it('should modify the function preserving its original behavior', function() {
@@ -102,7 +96,7 @@ describe('eventizeMethod', function() {
 
       it('should leave the method unmodified', function() {
         var eventizedMethod = target.someMethod;
-        eventizeMethod(target, 'someMethod');
+        eventize.method(target, 'someMethod');
         expect(target.someMethod).toBe(eventizedMethod);
       });
 
@@ -118,10 +112,10 @@ describe('eventizeMethod', function() {
       target.stringProperty = 'string';
       target.nullProperty = null;
 
-      eventizeMethod(target, 'numberProperty');
-      eventizeMethod(target, 'stringProperty');
-      eventizeMethod(target, 'nullProperty');
-      eventizeMethod(target, 'undefinedProperty');
+      eventize.method(target, 'numberProperty');
+      eventize.method(target, 'stringProperty');
+      eventize.method(target, 'nullProperty');
+      eventize.method(target, 'undefinedProperty');
 
       expect(target).toEqual(jasmine.objectContaining({
         numberProperty: 1,

@@ -1,8 +1,9 @@
-[![npm](https://img.shields.io/npm/v/eventize.svg)](https://www.npmjs.org/package/eventize)
 [![npm](https://img.shields.io/npm/l/eventize.svg)](https://www.npmjs.org/package/eventize)
+[![npm](https://img.shields.io/npm/v/eventize.svg)](https://www.npmjs.org/package/eventize)
+[![bower](https://img.shields.io/bower/v/eventize.svg)](http://bower.io/search/?q=eventize)  
 [![Build Status](https://travis-ci.org/rubennorte/eventize.svg?branch=master)](https://travis-ci.org/rubennorte/eventize)
 [![Coverage Status](https://coveralls.io/repos/rubennorte/eventize/badge.svg)](https://coveralls.io/r/rubennorte/eventize)
-[![Code Climate](https://codeclimate.com/github/rubennorte/eventize/badges/gpa.svg)](https://codeclimate.com/github/rubennorte/eventize)  
+[![Code Climate](https://codeclimate.com/github/rubennorte/eventize/badges/gpa.svg)](https://codeclimate.com/github/rubennorte/eventize)
 [![Dependency Status](https://david-dm.org/rubennorte/eventize.svg?theme=shields.io&style=flat)](https://david-dm.org/rubennorte/eventize)
 [![devDependency Status](https://david-dm.org/rubennorte/eventize/dev-status.svg?theme=shields.io&style=flat)](https://david-dm.org/rubennorte/eventize#info=devDependencies)
 
@@ -12,6 +13,8 @@ Convert objects into event emitters, that emit events before and after calling t
 
 ## Installation
 
+### Node 
+
 Dependencies:
 
 * node >= 0.10
@@ -19,6 +22,17 @@ Dependencies:
 
 ```bash
 npm install eventize
+```
+
+### Browser
+
+The package is also available as a UMD module (compatible with AMD, CommonJS and exposing a global variable `eventize`) in `dist/eventize.js` and `dist/eventize.min.js` (1.9 KB minified and gzipped).
+
+It can be installed with npm, bower or downloading the release from GitHub:
+
+```bash
+npm install eventize
+bower install eventize
 ```
 
 ## Usage
@@ -107,6 +121,13 @@ npm test
 5. Submit a pull request :D
 
 ## History
+
+* 0.6.0:
+  - Added browser compatibility
+  - Added bower.json
+
+* 0.5.1:
+  - Fixed documentation examples
 
 * 0.5.0:
   - Removed "method:after" events

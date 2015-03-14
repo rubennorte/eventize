@@ -23,8 +23,12 @@ npm install eventize
 
 ## Usage
 
+### eventize / eventize.object
+
+`eventize` (also `eventize.object`) converts plain objects into event emitters (if it they are not) and wraps the specified methods to emit events before and after being called:
+
 ```javascript
-var eventize = require('eventize'); // equivalent to require('eventize').object
+var eventize = require('eventize');
 
 var myObject = {
   name: 'John',
@@ -37,35 +41,52 @@ var myObject = {
   }
 };
 
+// equivalent to eventize.object(myObject, ['setName']);
 eventize(myObject, ['setName']);
 
-myObject.on('setName:before', function(args) {
-  console.log('Current name:', myObject.name, ', new name:', args[0]);
-  //> Current name: John, new name: Jack
-});
+myObject.on('setName:before', function(args) {});
+myObject.on('setName', function(args) {});
+myObject.on('setName:after', function(args, returnValue) {});
 
-myObject.on('setName', function(args) {
-  console.log('Current name:', myObject.name, ', new name:', args[0]);
-  //> Current name: John, new name: Jack
-});
+myObject.setName('Jack'); // emits setName:before, setName and setName:after
+```
 
-myObject.on('setName:after', function(args, returnValue) {
-  console.log('Current name:', myObject.name, ', new name:', args[0],
-    ', return value:', returnValue);
-  //> Current name: Jack, new name: Jack, return value: Jack
-});
+### eventize.methods
 
-myObject.setName('Jack');
+`eventize.methods` wraps the specified methods to emit events before and after being called (the target must be an event emitter):
 
+```javascript
+var eventize = require('eventize');
+var util = require('util');
+var EventEmitter = require('util');
 
+function MyConstructor() {
+  EventEmitter.call(this);
+}
+
+util.inherits(MyConstructor, EventEmitter);
+
+MyConstructor.prototype.addOne = function(value) {
+  return value + 1;
+};
+
+eventize.methods(MyConstructor.prototype, ['addOne']);
+
+var myObject = new MyConstructor();
+myObject.on('addOne:before', function(args) {});
+myObject.on('addOne', function(args) {});
+myObject.on('addOne:after', function(args, returnValue) {});
+myObject.addOne(1); // Emits addOne:before, addOne and addOne:after
+```
+
+### eventize.method
+
+`eventize.method` wraps a single method to emit events (the target must be an event emitter):
+
+```javascript
 eventize.method(myObject, 'getName');
-myObject.on('getName:after', function(args, returnValue) {
-  console.log('Current name:', returnValue);
-  //> Current name: Jack
-});
-
-myObject.getName();
-//> Jack
+myObject.on('getName:after', function(args, returnValue) {});
+myObject.getName(); // emits setName:before, setName and setName:after
 ```
 
 ## Tests
@@ -88,6 +109,9 @@ npm test
 
 ## History
 
+* 0.3.0:
+  - new method eventize.methods (mostly for classes)
+  
 * 0.2.0:
   - new methods eventize.object and eventize.method
   - eventize (eventize.object) is now idempotent (as well as eventize.method)

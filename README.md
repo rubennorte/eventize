@@ -109,9 +109,12 @@ npm test
 
 ## History
 
+* 0.4.0:
+  - Event callback signature is now (args, [returnValue], method, target)
+
 * 0.3.0:
   - new method eventize.methods (mostly for classes)
-  
+
 * 0.2.0:
   - new methods eventize.object and eventize.method
   - eventize (eventize.object) is now idempotent (as well as eventize.method)

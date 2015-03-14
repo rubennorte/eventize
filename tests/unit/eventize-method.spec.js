@@ -49,15 +49,17 @@ describe('eventize.method()', function() {
       target.someMethod(dummyParam1, dummyParam2);
 
       var eventArgs = eventSpy.calls.argsFor(0);
-      expect(eventArgs.length).toBe(1);
+      expect(eventArgs.length).toBe(3);
       expect(eventArgs[0].length).toBe(2);
       expect(eventArgs[0][0]).toBe(dummyParam1);
       expect(eventArgs[0][1]).toBe(dummyParam2);
+      expect(eventArgs[1]).toBe('someMethod');
+      expect(eventArgs[2]).toBe(target);
       // Equivalent to a hypothetical "expect(eventSpy).toHaveBeenCalledBefore(originalSomeMethod);"
       expect(eventSpy.lastCallTime).toBeLessThan(originalSomeMethod.lastCallTime);
     });
 
-    it('should emit "someMethod" BEFORE calling the original method, with its arguments', function() {
+    it('should emit "someMethod" BEFORE calling the original method, with the proper arguments', function() {
       var eventSpy = createTimeSpy('eventSpy');
       var dummyParam1 = {};
       var dummyParam2 = {};
@@ -66,15 +68,17 @@ describe('eventize.method()', function() {
       target.someMethod(dummyParam1, dummyParam2);
 
       var eventArgs = eventSpy.calls.argsFor(0);
-      expect(eventArgs.length).toBe(1);
+      expect(eventArgs.length).toBe(3);
       expect(eventArgs[0].length).toBe(2);
       expect(eventArgs[0][0]).toBe(dummyParam1);
       expect(eventArgs[0][1]).toBe(dummyParam2);
+      expect(eventArgs[1]).toBe('someMethod');
+      expect(eventArgs[2]).toBe(target);
       // Equivalent to a hypothetical "expect(eventSpy).toHaveBeenCalledBefore(originalSomeMethod);"
       expect(eventSpy.lastCallTime).toBeLessThan(originalSomeMethod.lastCallTime);
     });
 
-    it('should emit "someMethod:after" AFTER calling the original method, with its arguments and return value', function() {
+    it('should emit "someMethod:after" AFTER calling the original method, with the proper arguments', function() {
       var eventSpy = createTimeSpy('eventSpy');
       var dummyParam1 = {};
       var dummyParam2 = {};
@@ -83,11 +87,13 @@ describe('eventize.method()', function() {
       target.someMethod(dummyParam1, dummyParam2);
 
       var eventArgs = eventSpy.calls.argsFor(0);
-      expect(eventArgs.length).toBe(2);
+      expect(eventArgs.length).toBe(4);
       expect(eventArgs[0].length).toBe(2);
       expect(eventArgs[0][0]).toBe(dummyParam1);
       expect(eventArgs[0][1]).toBe(dummyParam2);
       expect(eventArgs[1]).toBe(originalSomeMethod.calls.first().returnValue);
+      expect(eventArgs[2]).toBe('someMethod');
+      expect(eventArgs[3]).toBe(target);
       // Equivalent to a hypothetical "expect(eventSpy).toHaveBeenCalledBefore(originalSomeMethod);"
       expect(eventSpy.lastCallTime).toBeGreaterThan(originalSomeMethod.lastCallTime);
     });

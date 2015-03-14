@@ -24,7 +24,7 @@ npm install eventize
 ## Usage
 
 ```javascript
-var eventize = require('eventize');
+var eventize = require('eventize'); // equivalent to require('eventize').object
 
 var myObject = {
   name: 'John',
@@ -37,7 +37,7 @@ var myObject = {
   }
 };
 
-eventize(myObject, ['setName', 'getName']);
+eventize(myObject, ['setName']);
 
 myObject.on('setName:before', function(args) {
   console.log('Current name:', myObject.name, ', new name:', args[0]);
@@ -56,6 +56,16 @@ myObject.on('setName:after', function(args, returnValue) {
 });
 
 myObject.setName('Jack');
+
+
+eventize.method(myObject, 'getName');
+myObject.on('getName:after', function(args, returnValue) {
+  console.log('Current name:', returnValue);
+  //> Current name: Jack
+});
+
+myObject.getName();
+//> Jack
 ```
 
 ## Tests
@@ -77,6 +87,10 @@ npm test
 5. Submit a pull request :D
 
 ## History
+
+* 0.2.0:
+  - new methods eventize.object and eventize.method
+  - eventize (eventize.object) is now idempotent (as well as eventize.method)
 
 * 0.1.0:
   - Basic functionality

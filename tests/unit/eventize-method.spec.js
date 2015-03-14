@@ -1,60 +1,21 @@
 
 'use strict';
 
+var EventEmitter = require('events').EventEmitter;
+
 var createTimeSpy = require('../helpers/create-time-spy');
+var eventizeMethod = require('../../lib/eventize-method');
 
-var eventize = require('../../lib/index');
+describe('eventizeMethod', function() {
 
-describe('eventize', function() {
-
-  it('should be a function', function() {
-    expect(eventize).toEqual(jasmine.any(Function));
-  });
-
-  it('should return the given target', function() {
-    var target = {};
-    expect(eventize(target)).toBe(target);
-  });
-
-  it('should throw an error if the target is not an object or a function', function() {
-    var eventizeObject = function() {
-      eventize({});
+  it('should throw an error if the object is not an event emitter', function() {
+    var target = {
+      someMethod: function() {}
     };
-    var eventizeFunction = function() {
-      eventize(function() {});
+    var doEventize = function() {
+      eventizeMethod(target, 'someMethod');
     };
-    var eventizeNull = function() {
-      eventize(null);
-    };
-    var eventizeUndefined = function() {
-      eventize();
-    };
-    var eventizeNumber = function() {
-      eventize(1);
-    };
-    var eventizeString = function() {
-      eventize('target');
-    };
-
-    expect(eventizeObject).not.toThrow();
-    expect(eventizeFunction).not.toThrow();
-    expect(eventizeNull).toThrow();
-    expect(eventizeUndefined).toThrow();
-    expect(eventizeNumber).toThrow();
-    expect(eventizeString).toThrow();
-  });
-
-  it('should convert the target into an event emitter', function() {
-    var target = {};
-    var eventSpy = jasmine.createSpy();
-    var eventOptions = {};
-
-    eventize(target);
-
-    target.on('someEvent', eventSpy);
-    target.emit('someEvent', eventOptions);
-
-    expect(eventSpy).toHaveBeenCalledWith(eventOptions);
+    expect(doEventize).toThrow(jasmine.any(TypeError));
   });
 
   describe('when calling it with the name of an existing "someMethod" function', function() {
@@ -64,12 +25,12 @@ describe('eventize', function() {
     beforeEach(function() {
       originalSomeMethod = createTimeSpy('someMethod');
       originalSomeOtherMethod = function() {};
-      target = {
-        someMethod: originalSomeMethod,
-        someOtherMethod: originalSomeOtherMethod
-      };
 
-      eventize(target, ['someMethod']);
+      target = new EventEmitter();
+      target.someMethod = originalSomeMethod;
+      target.someOtherMethod = originalSomeOtherMethod;
+
+      eventizeMethod(target, 'someMethod');
     });
 
     it('should modify the function preserving its original behavior', function() {
@@ -137,21 +98,31 @@ describe('eventize', function() {
       expect(eventSpy.lastCallTime).toBeGreaterThan(originalSomeMethod.lastCallTime);
     });
 
-    it('should not modify other methods', function() {
-      expect(target.someOtherMethod).toBe(originalSomeOtherMethod);
+    describe('when the method has already been eventized', function() {
+
+      it('should leave the method unmodified', function() {
+        var eventizedMethod = target.someMethod;
+        eventizeMethod(target, 'someMethod');
+        expect(target.someMethod).toBe(eventizedMethod);
+      });
+
     });
 
   });
 
-  describe('when calling it with non-function property names', function() {
+  describe('when calling it with a non-function property name', function() {
 
-    it('should leave them unmodified without throwing errors', function() {
-      var target = {
-        numberProperty: 1,
-        stringProperty: 'string',
-        nullProperty: null
-      };
-      eventize(target, ['numberProperty', 'stringProperty', 'nullProperty', 'undefinedProperty']);
+    it('should leave it unmodified without throwing errors', function() {
+      var target = new EventEmitter();
+      target.numberProperty = 1;
+      target.stringProperty = 'string';
+      target.nullProperty = null;
+
+      eventizeMethod(target, 'numberProperty');
+      eventizeMethod(target, 'stringProperty');
+      eventizeMethod(target, 'nullProperty');
+      eventizeMethod(target, 'undefinedProperty');
+
       expect(target).toEqual(jasmine.objectContaining({
         numberProperty: 1,
         stringProperty: 'string',

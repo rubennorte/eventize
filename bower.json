@@ -1,0 +1,24 @@
+{
+  "name": "eventize",
+  "version": "0.5.1",
+  "homepage": "https://github.com/rubennorte/eventize",
+  "authors": [
+    "Rubén Norte <rubennorte@gmail.com>"
+  ],
+  "description": "Make your methods emit events",
+  "main": "dist/eventize.min.js",
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    ".*"
+  ]
+}

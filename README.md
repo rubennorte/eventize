@@ -125,6 +125,7 @@ npm test
 * 0.6.0:
   - Added browser compatibility
   - Added bower.json
+  - Modified public API to expose a plain object with the main methods
 
 * 0.5.1:
   - Fixed documentation examples

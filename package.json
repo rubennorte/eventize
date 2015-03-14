@@ -1,6 +1,6 @@
 {
   "name": "eventize",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Transform your objects into event emitters",
   "main": "lib/index.js",
   "repository": {

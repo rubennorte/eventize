@@ -50,7 +50,8 @@ module.exports = function(config) {
 
     sauceLabs: {
       build: 'TRAVIS #' + process.env.TRAVIS_BUILD_NUMBER + ' (' + process.env.TRAVIS_BUILD_ID + ')',
-      public: 'public',
+      recordScreenshots: false,
+      recordVideo: false,
       startConnect: true,
       tunnelIdentifier: process.env.TRAVIS_JOB_NUMBER
     },

@@ -7,6 +7,8 @@
 [![Dependency Status](https://david-dm.org/rubennorte/eventize.svg?theme=shields.io&style=flat)](https://david-dm.org/rubennorte/eventize)
 [![devDependency Status](https://david-dm.org/rubennorte/eventize/dev-status.svg?theme=shields.io&style=flat)](https://david-dm.org/rubennorte/eventize#info=devDependencies)
 
+[![Sauce Test Status](https://saucelabs.com/browser-matrix/rubennorte.svg)](https://saucelabs.com/u/rubennorte)
+
 # eventize
 
 Convert objects into event emitters, that emit events before and after calling the specified methods.

@@ -15,8 +15,6 @@ var sauceBrowsers = [
   ['internet explorer', '11', 'Windows 8.1'],
   ['internet explorer', '10', 'Windows 8'],
   ['internet explorer', '9', 'Windows 7'],
-  ['internet explorer', '8'],
-  ['internet explorer', '7', 'Windows XP'],
 
   ['android', '4.3'],
   ['android', '4.0']

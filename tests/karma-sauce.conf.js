@@ -52,6 +52,7 @@ module.exports = function(config) {
       build: 'TRAVIS #' + process.env.TRAVIS_BUILD_NUMBER + ' (' + process.env.TRAVIS_BUILD_ID + ')',
       recordScreenshots: false,
       recordVideo: false,
+      'public': 'public',
       startConnect: true,
       tunnelIdentifier: process.env.TRAVIS_JOB_NUMBER
     },

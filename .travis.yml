@@ -8,5 +8,5 @@ script:
 node_js:
   - "0.10"
 env:
-  - secure: "gHcd43f/5i2nSuVXMr9YjmSZkdM9Qiq8f2qNAtoNGEW9yIKQutSMSDA33WPRIk5ibHnKyVes5Lt2IwZnlAvrVMjSoE7Vn7uHA84fBtuaWoajQn7ckVSN6IvNGCV2p5uZ9sL7JwoqhprMvYnempn+GBMimXCYpmr45/N5wBz6Oq8="
-  - secure: "gSXfR+VSveAVCAZlK90sVEP77KDX9B9gxXvXnobkykvqaaWTkmlTBtPOIvSBMIc+VXkwfTA5/8b/zaBqZB8LGcQCjoyLh4M1xLcki3iAAWPu9xLiiDEE3MVpST8Ml2+4bPDuzHlQt26u2QtoN7kn5/H9O5NYy6pW5HZAiWVUTnY="
+  - secure: "fzJQ0VYZev8+VZSyCnUbHUhWpmA6369yQMeVeVIIYL//4opHd+eSd1nmjH5l5b2ZxwUN1QtzGXdZiF+sCJH/wOt0ykRzLez/ogcjwG/rNcNdXQypio5w+oVxBcDNEWBMYyrZrEnuccYVacQKIXam6Def4n5NiTN0ojyoPVII53A="
+  

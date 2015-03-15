@@ -17,7 +17,6 @@
     "test": "npm run jasmine",
     "coverage": "istanbul cover tests/launch-unit.js",
     "test:browsers": "npm run browserify:tests && node_modules/karma/bin/karma start tests/karma.conf.js",
-    "test:saucelabs": "node_modules/karma/bin/karma start tests/karma-sauce.conf.js",
     "browserify:tests": "browserify tests/unit/index.js -o tests/unit.build.js",
     "browserify:bundle": "browserify lib/index.js --standalone eventize -o dist/eventize.js",
     "uglify:bundle": "uglifyjs dist/eventize.js --compress --mangle > dist/eventize.min.js",

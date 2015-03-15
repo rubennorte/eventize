@@ -2,9 +2,9 @@ language: node_js
 script:
   - "npm run travis"
   - "npm run browserify:tests"
-  - "npm run test:saucelabs --browsers FIREFOX_V4,FIREFOX_V11,FIREFOX_V20,FIREFOX_V35"
-  - "npm run test:saucelabs --browsers CHROME_V35,CHROME_V40,ANDROID_V4.0,ANDROID_V4.3"
-  - "npm run test:saucelabs --browsers INTERNET_EXPLORER_V9,INTERNET_EXPLORER_V10,INTERNET_EXPLORER_V11"
+  - "node_modules/karma/bin/karma start tests/karma-sauce.conf.js --browsers FIREFOX_V4,FIREFOX_V11,FIREFOX_V20,FIREFOX_V35"
+  - "node_modules/karma/bin/karma start tests/karma-sauce.conf.js --browsers CHROME_V35,CHROME_V40,ANDROID_V4.0,ANDROID_V4.3"
+  - "node_modules/karma/bin/karma start tests/karma-sauce.conf.js --browsers INTERNET_EXPLORER_V9,INTERNET_EXPLORER_V10,INTERNET_EXPLORER_V11"
 node_js:
   - "0.10"
 env:

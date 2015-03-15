@@ -1,6 +1,8 @@
 
 'use strict';
 
+var globalTime = 0;
+
 /**
  * Creates a jasmine spy that stores in an own "lastCallTime" property
  * the last time it was called.
@@ -10,8 +12,7 @@
  */
 module.exports = function createTimeSpy(name) {
   var spy = jasmine.createSpy(name).and.callFake(function() {
-    var time = process.hrtime();
-    spy.lastCallTime = time[0] * 1e9 + time[1];
+    spy.lastCallTime = ++globalTime;
   });
   return spy;
 };

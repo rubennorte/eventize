@@ -3,7 +3,7 @@
 
 var EventEmitter = require('events').EventEmitter;
 
-var createTimeSpy = require('../helpers/create-time-spy');
+var timeSpy = require('../helpers/time-spy');
 var eventize = require('../../lib/eventize-method');
 
 describe('eventize.method()', function() {
@@ -17,7 +17,9 @@ describe('eventize.method()', function() {
     var target, originalSomeMethod, originalSomeOtherMethod;
 
     beforeEach(function() {
-      originalSomeMethod = createTimeSpy('someMethod');
+      jasmine.addMatchers(timeSpy.matchers);
+
+      originalSomeMethod = timeSpy.create('someMethod');
       originalSomeOtherMethod = function() {};
 
       target = new EventEmitter();
@@ -41,7 +43,7 @@ describe('eventize.method()', function() {
     });
 
     it('should emit "someMethod:before" BEFORE calling the original method, with its arguments', function() {
-      var eventSpy = createTimeSpy('eventSpy');
+      var eventSpy = timeSpy.create('eventSpy');
       var dummyParam1 = {};
       var dummyParam2 = {};
 
@@ -55,12 +57,11 @@ describe('eventize.method()', function() {
       expect(eventArgs[0][1]).toBe(dummyParam2);
       expect(eventArgs[1]).toBe('someMethod');
       expect(eventArgs[2]).toBe(target);
-      // Equivalent to a hypothetical "expect(eventSpy).toHaveBeenCalledBefore(originalSomeMethod);"
-      expect(eventSpy.lastCallTime).toBeLessThan(originalSomeMethod.lastCallTime);
+      expect(eventSpy).toHaveBeenCalledBefore(originalSomeMethod);
     });
 
     it('should emit "someMethod" AFTER calling the original method, with the proper arguments', function() {
-      var eventSpy = createTimeSpy('eventSpy');
+      var eventSpy = timeSpy.create('eventSpy');
       var dummyParam1 = {};
       var dummyParam2 = {};
 
@@ -75,8 +76,7 @@ describe('eventize.method()', function() {
       expect(eventArgs[1]).toBe(originalSomeMethod.calls.first().returnValue);
       expect(eventArgs[2]).toBe('someMethod');
       expect(eventArgs[3]).toBe(target);
-      // Equivalent to a hypothetical "expect(eventSpy).toHaveBeenCalledAfter(originalSomeMethod);"
-      expect(eventSpy.lastCallTime).toBeGreaterThan(originalSomeMethod.lastCallTime);
+      expect(eventSpy).toHaveBeenCalledAfter(originalSomeMethod);
     });
 
     describe('when the method has already been eventized', function() {

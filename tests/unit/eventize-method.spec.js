@@ -35,10 +35,7 @@ describe('eventize.method()', function() {
 
       var result = target.someMethod(dummyParam1, dummyParam2);
 
-      var forwardedArgs = originalSomeMethod.calls.argsFor(0);
-      expect(forwardedArgs.length).toBe(2);
-      expect(forwardedArgs[0]).toBe(dummyParam1);
-      expect(forwardedArgs[1]).toBe(dummyParam2);
+      expect(originalSomeMethod).toHaveBeenCalledWith(dummyParam1, dummyParam2);
       expect(result).toBe(originalSomeMethod.calls.first().returnValue);
     });
 
@@ -50,13 +47,8 @@ describe('eventize.method()', function() {
       target.on('someMethod:before', eventSpy);
       target.someMethod(dummyParam1, dummyParam2);
 
-      var eventArgs = eventSpy.calls.argsFor(0);
-      expect(eventArgs.length).toBe(3);
-      expect(eventArgs[0].length).toBe(2);
-      expect(eventArgs[0][0]).toBe(dummyParam1);
-      expect(eventArgs[0][1]).toBe(dummyParam2);
-      expect(eventArgs[1]).toBe('someMethod');
-      expect(eventArgs[2]).toBe(target);
+      var args = jasmine.objectContaining({0: dummyParam1, 1: dummyParam2, length: 2});
+      expect(eventSpy).toHaveBeenCalledWith(args, 'someMethod', target);
       expect(eventSpy).toHaveBeenCalledBefore(originalSomeMethod);
     });
 
@@ -68,14 +60,9 @@ describe('eventize.method()', function() {
       target.on('someMethod', eventSpy);
       target.someMethod(dummyParam1, dummyParam2);
 
-      var eventArgs = eventSpy.calls.argsFor(0);
-      expect(eventArgs.length).toBe(4);
-      expect(eventArgs[0].length).toBe(2);
-      expect(eventArgs[0][0]).toBe(dummyParam1);
-      expect(eventArgs[0][1]).toBe(dummyParam2);
-      expect(eventArgs[1]).toBe(originalSomeMethod.calls.first().returnValue);
-      expect(eventArgs[2]).toBe('someMethod');
-      expect(eventArgs[3]).toBe(target);
+      var args = jasmine.objectContaining({0: dummyParam1, 1: dummyParam2, length: 2});
+      var returnValue = originalSomeMethod.calls.first().returnValue;
+      expect(eventSpy).toHaveBeenCalledWith(args, returnValue, 'someMethod', target);
       expect(eventSpy).toHaveBeenCalledAfter(originalSomeMethod);
     });
 

@@ -16,31 +16,19 @@ describe('eventize.methods()', function() {
   });
 
   it('should throw an error if the target is not an object or a function', function() {
-    var eventizeObj = function() {
-      eventize.methods({});
-    };
-    var eventizeFunction = function() {
-      eventize.methods(function() {});
-    };
-    var eventizeNull = function() {
-      eventize.methods(null);
-    };
-    var eventizeUndefined = function() {
-      eventize.methods();
-    };
-    var eventizeNumber = function() {
-      eventize.methods(1);
-    };
-    var eventizeString = function() {
-      eventize.methods('target');
+    var eventizeValueMethods = function(value) {
+      return function() {
+        eventize.methods(value);
+      };
     };
 
-    expect(eventizeObj).not.toThrow();
-    expect(eventizeFunction).not.toThrow();
-    expect(eventizeNull).toThrow(jasmine.any(TypeError));
-    expect(eventizeUndefined).toThrow(jasmine.any(TypeError));
-    expect(eventizeNumber).toThrow(jasmine.any(TypeError));
-    expect(eventizeString).toThrow(jasmine.any(TypeError));
+    expect(eventizeValueMethods(null)).toThrow(jasmine.any(TypeError));
+    expect(eventizeValueMethods(undefined)).toThrow(jasmine.any(TypeError));
+    expect(eventizeValueMethods(1)).toThrow(jasmine.any(TypeError));
+    expect(eventizeValueMethods('string')).toThrow(jasmine.any(TypeError));
+
+    expect(eventizeValueMethods({})).not.toThrow();
+    expect(eventizeValueMethods(function() {})).not.toThrow();
   });
 
   it('should call eventize.method() for each specified method', function() {

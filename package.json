@@ -23,7 +23,7 @@
     "prebuild": "rm -rf dist && mkdir dist",
     "build": "npm test && npm run browserify:bundle && npm run uglify:bundle",
     "travis": "npm run coverage && cat ./tests/output/coverage/lcov.info | coveralls && rm -rf ./tests/output/coverage",
-    "release": "npm run build && mversion -m \"New version: %s\" "
+    "release": "mversion -m \"New version: %s\" "
   },
   "files": [
     "dist",

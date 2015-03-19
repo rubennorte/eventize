@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "precommit": "git add -f dist",
+    "precommit": "npm run build && git add -f dist",
     "postcommit": "git push origin master && git push origin --tags && npm publish"
   }
 }

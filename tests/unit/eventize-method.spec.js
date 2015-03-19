@@ -47,7 +47,7 @@ describe('eventize.method()', function() {
       target.on('someMethod:before', eventSpy);
       target.someMethod(dummyParam1, dummyParam2);
 
-      var args = jasmine.objectContaining({0: dummyParam1, 1: dummyParam2, length: 2});
+      var args = [dummyParam1, dummyParam2];
       expect(eventSpy).toHaveBeenCalledWith(args, 'someMethod', target);
       expect(eventSpy).toHaveBeenCalledBefore(originalSomeMethod);
     });
@@ -60,7 +60,7 @@ describe('eventize.method()', function() {
       target.on('someMethod', eventSpy);
       target.someMethod(dummyParam1, dummyParam2);
 
-      var args = jasmine.objectContaining({0: dummyParam1, 1: dummyParam2, length: 2});
+      var args = [dummyParam1, dummyParam2];
       var returnValue = originalSomeMethod.calls.first().returnValue;
       expect(eventSpy).toHaveBeenCalledWith(args, returnValue, 'someMethod', target);
       expect(eventSpy).toHaveBeenCalledAfter(originalSomeMethod);
